@@ -48,7 +48,7 @@ Student();
 Student(StudentID id,string name,String department){
     this->id=id;
     this->name=name;
-    thid->department=department;   
+    this->department=department;
 }
 };
 
