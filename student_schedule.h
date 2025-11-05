@@ -1,9 +1,8 @@
 #ifndef STUDENT_SCHEDULE_H
 #define STUDENT_SCHEDULE_H
-
 #include <string>
 #include <vector>
-
+#using namespace std;
 /*
 =========================================================
     STUDENT SCHEDULE MODULE (Part B)
@@ -34,10 +33,23 @@ using CourseId  = int;
    - id   : Unique integer identifier
    - name : Student's full name
 */
-struct Student {
+class Student {
+private:
     StudentId id;
-    std::string name;
-    // (Optionally: year, department, etc. can be added later)
+    string name;
+    String department;
+    // (Optionally: year etc. can be added later)
+// Constructors
+public:
+// Default Constructor
+Student();
+
+// Parameterized Constructor
+Student(StudentID id,string name,String department){
+    this->id=id;
+    this->name=name;
+    thid->department=department;   
+}
 };
 
 // -------------------- FUNCTION DECLARATIONS --------------------
@@ -83,14 +95,14 @@ bool isStudentEnrolledInCourse(const StudentId& sid, const CourseId& cid);
    - Input: StudentId
    - Output: vector of CourseId
 */
-std::vector<CourseId> getStudentCourses(const StudentId& sid);
+vector<CourseId> getStudentCourses(const StudentId& sid);
 
 /*
    Gets all students who are enrolled in a given course.
    - Input: CourseId
    - Output: vector of StudentId
 */
-std::vector<StudentId> getCourseStudents(const CourseId& cid);
+vector<StudentId> getCourseStudents(const CourseId& cid);
 
 /*
    Returns total number of active enrollments.
