@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+using namespace std;
 
 /*
 =========================================================
@@ -19,17 +20,27 @@
 =========================================================
 */
 
-// -------------------- STRUCT DEFINITION --------------------
+// -------------------- Class DEFINITION --------------------
 /*
    Represents a university course with:
    - id      : Unique integer identifier
    - name    : Course name (string)
    - credits : Number of credits assigned
 */
-struct Course {
+class Course {
     int id;
-    std::string name;
+    string name;
     int credits;
+public:
+// All Constructors defined
+// Default Constructor
+Course();
+// Parameterized constructor
+Course(int id,string name, int credits){
+    this->id = id;
+    this->name = name;
+    this->credits = credits;
+}
 };
 
 // -------------------- FUNCTION DECLARATIONS --------------------
@@ -41,7 +52,7 @@ struct Course {
 void addCourse(const Course& c);
 
 /*
-   Removes a course by its unique id.
+   Removes a course.
    - Input: int id (course id)
    - Effect: Deletes matching course if found
 */
