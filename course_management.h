@@ -70,7 +70,7 @@ Course* searchCourseById(int id);
    - Input: string name
    - Output: Pointer to Course (nullptr if not found)
 */
-Course* searchCourseByName(const std::string& name);
+Course* searchCourseByName(const string& name);
 
 /*
    Updates the credit value of a course.

@@ -7,6 +7,8 @@
 #include <iostream>
 #include <vector>
 
+using namespace std;
+
 /*
 =========================================================
     HASH MANAGER MODULE (Part D)
@@ -24,7 +26,7 @@
     How to use:
     - Include this header in main.cpp.
     - Implement the functions in hash_manager.cpp.
-=========================================================
+=======================================================
 */
 
 // -------------------- TYPEDEFS --------------------
@@ -37,7 +39,7 @@ using StudentId = int;
 */
 struct Course {
     CourseId id;
-    std::string name;
+    string name;
     int credits;
 };
 
@@ -46,16 +48,16 @@ struct Course {
 */
 struct Student {
     StudentId id;
-    std::string name;
+    string name;
 };
 
 /*
    Assignment entity
 */
 struct Assignment {
-    std::string id;     // string key (e.g., "A101")
-    std::string title;
-    std::string dueDate;
+    string id;     // string key (e.g., "A101")
+    string title;
+    string dueDate;
     bool completed = false;
 };
 
@@ -73,9 +75,9 @@ bool containsStudent(const StudentId& id);
 
 // -------------------- ASSIGNMENT HASH FUNCTIONS --------------------
 void insertAssignment(const Assignment& a);
-Assignment* findAssignmentById(const std::string& id);
-void removeAssignmentById(const std::string& id);
-bool containsAssignment(const std::string& id);
+Assignment* findAssignmentById(const string& id);
+void removeAssignmentById(const string& id);
+bool containsAssignment(const string& id);
 
 // -------------------- META FUNCTIONS --------------------
 /*

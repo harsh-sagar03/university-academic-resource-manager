@@ -2,7 +2,7 @@
 #define STUDENT_SCHEDULE_H
 #include <string>
 #include <vector>
-#using namespace std;
+using namespace std;
 /*
 =========================================================
     STUDENT SCHEDULE MODULE (Part B)
@@ -20,12 +20,6 @@
 */
 
 // -------------------- TYPEDEFS --------------------
-/*
-   Defining StudentId and CourseId as aliases for int.
-   This makes it easy to change type later if needed.
-*/
-using StudentId = int;
-using CourseId  = int;
 
 // -------------------- STRUCT DEFINITIONS --------------------
 /*
@@ -35,9 +29,9 @@ using CourseId  = int;
 */
 class Student {
 private:
-    StudentId id;
+    int id;
     string name;
-    String department;
+    string department;
     // (Optionally: year etc. can be added later)
 // Constructors
 public:
@@ -45,7 +39,7 @@ public:
 Student();
 
 // Parameterized Constructor
-Student(StudentID id,string name,String department){
+Student(int id,string name,string department){
     this->id=id;
     this->name=name;
     this->department=department;
@@ -63,46 +57,46 @@ void addStudent(const Student& s);
    Removes a student completely (and drops all their enrollments).
    - Input: StudentId
 */
-void removeStudent(const StudentId& id); //removeStudent: must also clean up all their course enrollments.
+void removeStudent(const int& id); //removeStudent: must also clean up all their course enrollments.
 
 /*
    Enrolls a student in a course.
    - Input: StudentId, CourseId
 */
-void enrollStudentInCourse(const StudentId& sid, const CourseId& cid);
+void enrollStudentInCourse(const int& sid, const int& cid);
 
 /*
    Drops a student from a specific course.
    - Input: StudentId, CourseId
 */
-void dropStudentFromCourse(const StudentId& sid, const CourseId& cid);
+void dropStudentFromCourse(const int& sid, const int& cid);
 
 /*
    Displays the full schedule (list of courses) for a student.
    - Input: StudentId
 */
-void displayStudentSchedule(const StudentId& sid);
+void displayStudentSchedule(const int& sid);
 
 /*
    Checks if a student is enrolled in a given course.
    - Input: StudentId, CourseId
    - Output: true if enrolled, false otherwise
 */
-bool isStudentEnrolledInCourse(const StudentId& sid, const CourseId& cid);
+bool isStudentEnrolledInCourse(const int& sid, const int& cid);
 
 /*
    Gets all courses that a student is enrolled in.
    - Input: StudentId
    - Output: vector of CourseId
 */
-vector<CourseId> getStudentCourses(const StudentId& sid);
+vector<int> getStudentCourses(const int& sid);
 
 /*
    Gets all students who are enrolled in a given course.
    - Input: CourseId
    - Output: vector of StudentId
 */
-vector<StudentId> getCourseStudents(const CourseId& cid);
+vector<int> getCourseStudents(const int& cid);
 
 /*
    Returns total number of active enrollments.

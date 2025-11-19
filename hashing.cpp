@@ -64,13 +64,13 @@ int main() {
 
     if (containsCourse(searchId)) {
         Course* c = findCourseById(searchId);
-        std::cout << "Found: " << c->name << " (" << c->credits << " credits)\n";
+        cout << "Found: " << c->name << " (" << c->credits << " credits)\n";
     }
 
     removeCourseById(searchId);
 
     if (!containsCourse(searchId)) {
-        std::cout << "Course removed successfully.\n";
+        cout << "Course removed successfully.\n";
     }
 
     return 0;
@@ -96,7 +96,7 @@ public:
 };
 
 // -------------------- GLOBAL HASH TABLE --------------------
-std::unordered_map<int, Student> studentTable;
+unordered_map<int, Student> studentTable;
 
 // -------------------- STUDENT FUNCTIONS --------------------
 
@@ -134,13 +134,13 @@ int main() {
 
     if (containsStudent(searchId)) {
         Student* s = findStudentById(searchId);
-        std::cout << "Found student: " << s->name << "\n";
+        cout << "Found student: " << s->name << "\n";
     }
 
     removeStudentById(searchId);
 
     if (!containsStudent(searchId)) {
-        std::cout << "Student removed successfully.\n";
+        cout << "Student removed successfully.\n";
     }
 
     return 0;
@@ -228,5 +228,3 @@ int main() {
 
     return 0;
 }
-
-

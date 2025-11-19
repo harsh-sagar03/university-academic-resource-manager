@@ -5,7 +5,7 @@
 #include <queue>
 #include <stack>
 #include <cstddef> // for size_t
-
+using namespace std;
 /*
 =========================================================
     ASSIGNMENT & NOTES MODULE (Part C)
@@ -44,7 +44,9 @@ struct Assignment {
     std::string dueDate;
     bool completed = false;
 };
-
+struct Note {
+    string text;
+};
 // -------------------- ASSIGNMENT FUNCTIONS --------------------
 /*
    Adds a new assignment into the pending queue.
@@ -64,7 +66,7 @@ Assignment getNextAssignment();
    - Input: assignmentId (string)
    - Output: true if found and marked, false otherwise
 */
-bool completeAssignment(const std::string& assignmentId);
+bool completeAssignment(const string& assignmentId);
 
 /*
    Displays all pending assignments in queue order.
@@ -88,7 +90,7 @@ size_t totalAssignments();
    Pushes a note onto the stack.
    - Input: note (string)
 */
-void pushNote(const std::string& note);
+void pushNote(const string& note);
 
 /*
    Pops (removes) the most recent note from the stack.
