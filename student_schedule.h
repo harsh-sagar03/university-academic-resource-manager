@@ -44,7 +44,14 @@ Student(int id,string name,string department){
     this->name=name;
     this->department=department;
 }
+
+int getId() const { return id; }
+string getName() const { return name; }
+string getDepartment() const { return department; }
+
 };
+
+
 
 // -------------------- FUNCTION DECLARATIONS --------------------
 /*

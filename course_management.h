@@ -21,13 +21,13 @@ using namespace std;
 */
 
 // -------------------- Class DEFINITION --------------------
-/*
-   Represents a university course with:
+/*university course with:
    - id      : Unique integer identifier
    - name    : Course name (string)
    - credits : Number of credits assigned
 */
 class Course {
+private:
     int id;
     string name;
     int credits;
@@ -41,6 +41,12 @@ Course(int id,string name, int credits){
     this->name = name;
     this->credits = credits;
 }
+ // -------- GETTERS --------
+int getId() const { return id; }
+string getName() const { return name; }
+int getCredits() const { return credits; }
+// -------- SETTERS --------
+void setCredits(int c) { credits = c; }
 };
 
 // -------------------- FUNCTION DECLARATIONS --------------------
