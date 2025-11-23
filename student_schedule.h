@@ -49,6 +49,10 @@ int getId() const { return id; }
 string getName() const { return name; }
 string getDepartment() const { return department; }
 
+void setId(int newId) { id = newId; }
+void setName(const string &newName) { name = newName; }
+void setDepartment(const string &newDept) { department = newDept; }
+
 };
 
 

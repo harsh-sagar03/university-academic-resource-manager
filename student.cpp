@@ -2,6 +2,9 @@
 #include "student_schedule.h"
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <sstream>
+#include <string>
 using namespace std;
 
 /*
@@ -153,4 +156,48 @@ void displayStudentSchedule(const int &sid) {
     for (int i = 0; i < (int)courses.size(); i++) {
         cout << "- Course ID: " << courses[i] << "\n";
     }
+}
+
+void saveStudentData() {
+    ofstream out("students.txt");
+    if(!out) return;
+
+    for(const auto &s : studentList) {
+        out << s.getId() << "," 
+            << s.getName() << "," 
+            << s.getDepartment() << "\n";
+    }
+    out.close();
+}
+
+void loadStudentData() {
+    studentList.clear();
+
+    ifstream in("students.txt");
+    if(!in) return;
+
+    string line;
+    while(getline(in, line)) {
+        if(line.empty()) continue;
+
+        stringstream ss(line);
+        string idStr, name, dept;
+
+        getline(ss, idStr, ',');
+        getline(ss, name, ',');
+        getline(ss, dept, ',');
+
+        if(idStr.empty() || name.empty() || dept.empty())
+            continue;
+
+        int id = stoi(idStr);
+        Student s;
+        s.setId(id);
+        s.setName(name);
+        s.setDepartment(dept);
+
+        studentList.push_back(s);
+    }
+
+    in.close();
 }
