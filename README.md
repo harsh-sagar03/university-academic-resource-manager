@@ -92,6 +92,12 @@ Used for fast student record lookup.
 Graphs:
 Used for course prerequisite mapping.
 
+# Real-World Relevance & Innovation
+
+This project models how an actual university manages its academic ecosystem, but with a uniquely foundational approach: every subsystem is built directly on core data structures instead of relying on pre-made libraries or frameworks. Departments and their courses are organized using a multi-list structure that mirrors real catalog hierarchies. Course prerequisites are validated through a full graph implementation, enabling detection of circular dependencies and proper planning of academic pathways—features used in real registration portals.
+
+Student information is stored in a custom-designed hash table that provides near-instant lookup, reflecting how real student information systems handle thousands of records efficiently. Resource requests follow a queue-driven workflow similar to the systems used in libraries and academic help desks. A stack-based undo mechanism introduces a practical feature often missing in student projects, demonstrating how reversible actions are handled in real software. Together, these structures form a tiny but functional academic management backbone, showing how raw data-structure logic can solve genuine institutional challenges without external databases or heavy frameworks.
+
 File Handling
 
 Data is stored in text files:
