@@ -85,6 +85,7 @@ void enrollStudentInCourse(const int &sid, const int &cid) {
     }
 
     enrollments.push_back(make_pair(sid, cid));
+    saveEnrollments();
 }
 
 void dropStudentFromCourse(const int &sid, const int &cid) {
@@ -100,6 +101,8 @@ void dropStudentFromCourse(const int &sid, const int &cid) {
 
     if (!removed)
         cout << "Enrollment not found.\n";
+
+    saveEnrollments();
 }
 
 bool isStudentEnrolledInCourse(const int &sid, const int &cid) {
@@ -197,6 +200,44 @@ void loadStudentData() {
         s.setDepartment(dept);
 
         studentList.push_back(s);
+    }
+
+    in.close();
+    loadEnrollments();
+}
+
+void saveEnrollments() {
+    ofstream out("enrollments.txt");
+    if (!out) return;
+
+    for (const auto &p : enrollments) {
+        out << p.first << "," << p.second << "\n";
+    }
+    out.close();
+}
+
+void loadEnrollments() {
+    enrollments.clear();
+
+    ifstream in("enrollments.txt");
+    if (!in) return;
+
+    string line;
+    while (getline(in, line)) {
+        if (line.empty()) continue;
+
+        stringstream ss(line);
+        string sidStr, cidStr;
+
+        getline(ss, sidStr, ',');
+        getline(ss, cidStr, ',');
+
+        if (sidStr.empty() || cidStr.empty()) continue;
+
+        int sid = stoi(sidStr);
+        int cid = stoi(cidStr);
+
+        enrollments.push_back(make_pair(sid, cid));
     }
 
     in.close();

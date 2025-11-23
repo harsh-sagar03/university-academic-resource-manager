@@ -23,11 +23,8 @@ void pause(bool doIgnore);
 void graphMenu() {
     cout << "\n--- SEMESTER PLANNER (GRAPH / TOPOLOGICAL SORT) ---\n";
 
-    int n;
-    cout << "Enter number of courses (nodes): ";
-    cin >> n;
-
-    Graph g(n);
+    globalGraph.loadFromFile();
+    cout << "(Loaded existing prerequisites from graph.txt)\n";
 
     int e;
     cout << "Enter number of prerequisite relations: ";
@@ -37,7 +34,7 @@ void graphMenu() {
     for (int i = 0; i < e; i++) {
         int u, v;
         cin >> u >> v;
-        g.addEdge(u, v);
+        globalGraph.addEdge(u, v);
     }
 
     int choice;
@@ -47,11 +44,12 @@ void graphMenu() {
     cout << "Enter choice: ";
     cin >> choice;
 
-    if (choice == 1) g.printGraph();
-    else if (choice == 2) g.topologicalSort();
-    else if (choice == 3) g.semesterPlan();
+    if (choice == 1) globalGraph.printGraph();
+    else if (choice == 2) globalGraph.topologicalSort();
+    else if (choice == 3) globalGraph.semesterPlan();
     else cout << "Invalid option.\n";
 
+    globalGraph.saveToFile();
     pause(false);
 }
 

@@ -173,27 +173,24 @@ void Graph::loadFromFile() {
     ifstream fin("graph.txt");
     if (!fin.is_open()) return;
 
+    origToIdx.clear();
+    idxToOrig.clear();
+    nodes = 0;
+    adj.clear();
+
     string line;
-    vector<pair<int,int>> edges;
     while (getline(fin, line)) {
         if (line.empty()) continue;
         size_t pos = line.find("->");
         if (pos == string::npos) continue;
+
         int u = stoi(line.substr(0, pos));
         int v = stoi(line.substr(pos + 2));
-        edges.push_back({u, v});
+
+        addEdge(u, v);
     }
+
     fin.close();
-
-    int maxNode = 0;
-    for (auto &p : edges)
-        maxNode = max(maxNode, max(p.first, p.second));
-
-    nodes = maxNode + 1;
-    adj.assign(nodes, vector<int>());
-
-    for (auto &p : edges)
-        adj[p.first].push_back(p.second);
 }
 
 void Graph::saveToFile() const {
@@ -201,7 +198,7 @@ void Graph::saveToFile() const {
     if (!fout.is_open()) return;
     for (int u = 0; u < nodes; u++) {
         for (int v : adj[u])
-            fout << u << "->" << v << "\n";
+            fout << idxToOrig[u] << "->" << idxToOrig[v] << "\n";
     }
     fout.close();
 }

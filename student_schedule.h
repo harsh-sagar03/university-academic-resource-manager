@@ -121,5 +121,7 @@ size_t totalEnrollments();
 void loadStudentData();
 // Save all students and enrollments to file
 void saveStudentData();
+void saveEnrollments();
+void loadEnrollments();
 
 #endif // STUDENT_SCHEDULE_H

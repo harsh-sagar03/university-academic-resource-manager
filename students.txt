@@ -1,1 +1,10 @@
-#ENROLLMENTS
+101,Harsh Sagar,Computer Science
+102,Aditi Sharma,Information Technology
+103,Rohan Singh,Computer Science
+104,Megha Verma,Electronics
+105,Ankit Raj,Computer Science
+106,Kritika Joshi,Information Technology
+107,Sanjay Kumar,Mechanical
+108,Neha Gupta,Computer Science
+109,Aryan Verma,Information Technology
+110,Simran Kaur,Electronics
