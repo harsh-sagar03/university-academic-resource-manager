@@ -139,7 +139,7 @@ void displayStudentSchedule(const int &sid) {
 
     cout << "\nSchedule for Student " << sid 
          << " (" << s->getName() << ")\n";
-    cout << "------------------------------------\n";
+    cout << "\n";
 
     vector<int> courses = getStudentCourses(sid);
 
