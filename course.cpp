@@ -1,5 +1,6 @@
 #include "course_management.h"
 #include <iostream>
+#include <vector>
 #include <algorithm>
 using namespace std;
 
@@ -11,15 +12,11 @@ static vector<Course> courseList;
 // Default constructor
 Course::Course() : id(0), name(""), credits(0) {}
 
-
-// ======================================================
-//                  FUNCTION IMPLEMENTATIONS
-// ======================================================
-
-void addCourse(const Course& c) {
-    // Prevent duplicate ID
-    for (const auto &x : courseList) {
-        if (x.getId() == c.getId()) {
+//               FUNCTION DEFINITIONS
+void addCourse(const Course &c) {
+    // Check duplicate
+    for (int i = 0; i < (int)courseList.size(); i++) {
+        if (courseList[i].getId() == c.getId()) {
             cout << "Course with ID " << c.getId() << " already exists.\n";
             return;
         }
@@ -28,51 +25,70 @@ void addCourse(const Course& c) {
 }
 
 void removeCourse(int id) {
-    auto it = remove_if(courseList.begin(), courseList.end(),
-        [id](const Course& c){ return c.getId() == id; });
+    bool found = false;
 
-    if (it == courseList.end()) {
-        cout << "Course ID " << id << " not found.\n";
-        return;
+    for (int i = 0; i < (int)courseList.size(); i++) {
+        if (courseList[i].getId() == id) {
+            courseList.erase(courseList.begin() + i);
+            found = true;
+            break;
+        }
     }
-    courseList.erase(it, courseList.end());
+
+    if (!found) {
+        cout << "Course ID " << id << " not found.\n";
+    }
 }
 
 Course* searchCourseById(int id) {
-    for (auto &c : courseList)
-        if (c.getId() == id)
-            return &c;
-    return nullptr;
+    for (int i = 0; i < (int)courseList.size(); i++) {
+        if (courseList[i].getId() == id)
+            return &courseList[i];
+    }
+    return NULL;
 }
 
-Course* searchCourseByName(const string& name) {
-    for (auto &c : courseList)
-        if (c.getName() == name)
-            return &c;
-    return nullptr;
+Course* searchCourseByName(const string &name) {
+    for (int i = 0; i < (int)courseList.size(); i++) {
+        if (courseList[i].getName() == name)
+            return &courseList[i];
+    }
+    return NULL;
 }
 
 void updateCourseCredits(int id, int credits) {
     Course* c = searchCourseById(id);
-    if (!c) {
+
+    if (c == NULL) {
         cout << "Course ID " << id << " not found.\n";
         return;
     }
+
     c->setCredits(credits);
 }
 
 void sortCoursesByName() {
-    sort(courseList.begin(), courseList.end(),
-        [](const Course& a, const Course& b){
-            return a.getName() < b.getName();
-        });
+    for (int i = 0; i < (int)courseList.size(); i++) {
+        for (int j = i + 1; j < (int)courseList.size(); j++) {
+            if (courseList[j].getName() < courseList[i].getName()) {
+                Course temp = courseList[i];
+                courseList[i] = courseList[j];
+                courseList[j] = temp;
+            }
+        }
+    }
 }
 
 void sortCoursesByCredits() {
-    sort(courseList.begin(), courseList.end(),
-        [](const Course& a, const Course& b){
-            return a.getCredits() < b.getCredits();
-        });
+    for (int i = 0; i < (int)courseList.size(); i++) {
+        for (int j = i + 1; j < (int)courseList.size(); j++) {
+            if (courseList[j].getCredits() < courseList[i].getCredits()) {
+                Course temp = courseList[i];
+                courseList[i] = courseList[j];
+                courseList[j] = temp;
+            }
+        }
+    }
 }
 
 void displayAllCourses() {
@@ -82,11 +98,11 @@ void displayAllCourses() {
     }
 
     cout << "ID\tName\t\tCredits\n";
-    cout << "------------------------------------\n";
+    cout << "\n";
 
-    for (const auto &c : courseList) {
-        cout << c.getId() << "\t" 
-             << c.getName() << "\t\t" 
-             << c.getCredits() << "\n";
+    for (int i = 0; i < (int)courseList.size(); i++) {
+        cout << courseList[i].getId() << "\t"
+             << courseList[i].getName() << "\t\t"
+             << courseList[i].getCredits() << "\n";
     }
 }
