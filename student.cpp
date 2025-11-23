@@ -1,13 +1,13 @@
 #include "student_schedule.h"
 #include <iostream>
-#include <algorithm>
+#include <vector>
 using namespace std;
 
 /*
     INTERNAL STORAGE
 */
 static vector<Student> studentList;
-static vector<pair<int,int>> enrollments;  // (studentId, courseId)
+static vector<pair<int,int>> enrollments;   // (studentId, courseId)
 
 
 // ------------------ Student Default Constructor ------------------
@@ -16,21 +16,22 @@ Student::Student() : id(0), name(""), department("") {}
 
 // ------------------ Helper function: search by ID ------------------
 static Student* searchStudentById(int id) {
-    for (auto &s : studentList)
-        if (s.getId() == id)
-            return &s;
-    return nullptr;
+    for (int i = 0; i < (int)studentList.size(); i++) {
+        if (studentList[i].getId() == id)
+            return &studentList[i];
+    }
+    return NULL;
 }
 
 
 // ======================================================
-//                  FUNCTION IMPLEMENTATIONS
+//               FUNCTION IMPLEMENTATIONS
 // ======================================================
 
-void addStudent(const Student& s) {
-    // Prevent duplicate student ID
-    for (auto &x : studentList) {
-        if (x.getId() == s.getId()) {
+void addStudent(const Student &s) {
+    // Prevent duplicate ID
+    for (int i = 0; i < (int)studentList.size(); i++) {
+        if (studentList[i].getId() == s.getId()) {
             cout << "Student ID " << s.getId() << " already exists.\n";
             return;
         }
@@ -38,86 +39,89 @@ void addStudent(const Student& s) {
     studentList.push_back(s);
 }
 
-void removeStudent(const int& id) {
+void removeStudent(const int &id) {
     bool found = false;
 
-    // Remove student
-    auto it = remove_if(studentList.begin(), studentList.end(),
-        [id, &found](const Student& s){
-            if (s.getId() == id) {
-                found = true;
-                return true;
-            }
-            return false;
-        });
+    // remove student
+    for (int i = 0; i < (int)studentList.size(); i++) {
+        if (studentList[i].getId() == id) {
+            studentList.erase(studentList.begin() + i);
+            found = true;
+            break;
+        }
+    }
 
     if (!found) {
         cout << "Student ID " << id << " not found.\n";
         return;
     }
 
-    studentList.erase(it, studentList.end());
-
-    // Remove all enrollments of this student
-    enrollments.erase(
-        remove_if(enrollments.begin(), enrollments.end(),
-            [id](const pair<int,int>& p){
-                return p.first == id;
-            }),
-        enrollments.end()
-    );
+    // remove enrollments
+    for (int i = 0; i < (int)enrollments.size(); ) {
+        if (enrollments[i].first == id)
+            enrollments.erase(enrollments.begin() + i);
+        else
+            i++;
+    }
 }
 
-void enrollStudentInCourse(const int& sid, const int& cid) {
-    if (!searchStudentById(sid)) {
+void enrollStudentInCourse(const int &sid, const int &cid) {
+    if (searchStudentById(sid) == NULL) {
         cout << "Student " << sid << " does not exist.\n";
         return;
     }
 
-    // Prevent duplicate enrollment
-    for (auto &p : enrollments)
-        if (p.first == sid && p.second == cid) {
-            cout << "Student already enrolled in course.\n";
+    // check duplicate
+    for (int i = 0; i < (int)enrollments.size(); i++) {
+        if (enrollments[i].first == sid && enrollments[i].second == cid) {
+            cout << "Student already enrolled in this course.\n";
             return;
         }
-
-    enrollments.push_back({sid, cid});
-}
-
-void dropStudentFromCourse(const int& sid, const int& cid) {
-    auto it = remove_if(enrollments.begin(), enrollments.end(),
-        [sid, cid](const pair<int,int>& p){
-            return (p.first == sid && p.second == cid);
-        });
-
-    if (it == enrollments.end()) {
-        cout << "Enrollment not found.\n";
-        return;
     }
 
-    enrollments.erase(it, enrollments.end());
+    enrollments.push_back(make_pair(sid, cid));
 }
 
-bool isStudentEnrolledInCourse(const int& sid, const int& cid) {
-    for (auto &p : enrollments)
-        if (p.first == sid && p.second == cid)
+void dropStudentFromCourse(const int &sid, const int &cid) {
+    bool removed = false;
+
+    for (int i = 0; i < (int)enrollments.size(); i++) {
+        if (enrollments[i].first == sid && enrollments[i].second == cid) {
+            enrollments.erase(enrollments.begin() + i);
+            removed = true;
+            break;
+        }
+    }
+
+    if (!removed)
+        cout << "Enrollment not found.\n";
+}
+
+bool isStudentEnrolledInCourse(const int &sid, const int &cid) {
+    for (int i = 0; i < (int)enrollments.size(); i++) {
+        if (enrollments[i].first == sid && enrollments[i].second == cid)
             return true;
+    }
     return false;
 }
 
-vector<int> getStudentCourses(const int& sid) {
+vector<int> getStudentCourses(const int &sid) {
     vector<int> list;
-    for (auto &p : enrollments)
-        if (p.first == sid)
-            list.push_back(p.second);
+
+    for (int i = 0; i < (int)enrollments.size(); i++) {
+        if (enrollments[i].first == sid)
+            list.push_back(enrollments[i].second);
+    }
     return list;
 }
 
-vector<int> getCourseStudents(const int& cid) {
+vector<int> getCourseStudents(const int &cid) {
     vector<int> list;
-    for (auto &p : enrollments)
-        if (p.second == cid)
-            list.push_back(p.first);
+
+    for (int i = 0; i < (int)enrollments.size(); i++) {
+        if (enrollments[i].second == cid)
+            list.push_back(enrollments[i].first);
+    }
     return list;
 }
 
@@ -125,9 +129,10 @@ size_t totalEnrollments() {
     return enrollments.size();
 }
 
-void displayStudentSchedule(const int& sid) {
-    Student* s = searchStudentById(sid);
-    if (!s) {
+void displayStudentSchedule(const int &sid) {
+    Student *s = searchStudentById(sid);
+
+    if (s == NULL) {
         cout << "Student ID " << sid << " not found.\n";
         return;
     }
@@ -143,6 +148,7 @@ void displayStudentSchedule(const int& sid) {
         return;
     }
 
-    for (int cid : courses)
-        cout << "- Course ID: " << cid << "\n";
+    for (int i = 0; i < (int)courses.size(); i++) {
+        cout << "- Course ID: " << courses[i] << "\n";
+    }
 }
