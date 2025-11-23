@@ -1,7 +1,7 @@
 # university-academic-resource-manager
 #Overview
 
-The Academic Resource Manager is a modular C++ project designed to manage and organize university-level academic data such as departments, courses, resources, and student records. It demonstrates the practical use of core data structures including arrays, linked lists, stacks, queues, multi-lists, graphs, and hash tables. All modules are implemented in separate .h and .cpp files, with persistent data stored in .txt files.
+The Academic Resource Manager is a modular C++ project designed to manage and organize university-level academic data such as departments, courses, resources, and student records. It demonstrates the practical use of core data structures including arrays, linked lists, stacks, queues, multi-lists, graphs, and hash tables. All modules are implemented in separate .h and .cpp files, with persistent data stored in .txt files. 
 
 The system models an academic ecosystem: departments store courses, students are indexed through a hash table, course prerequisites are mapped using graphs, and resource requests flow through queues. The result is a structured and scalable academic management tool.
 
