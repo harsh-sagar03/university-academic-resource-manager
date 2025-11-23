@@ -30,6 +30,10 @@ public:
     // Print the graph neatly — nice for debugging.
     void printGraph() const;
 
+    // Persistence
+    void loadFromFile();
+    void saveToFile() const;
+
 private:
     int nodes;
     vector<vector<int>> adj;
@@ -37,5 +41,7 @@ private:
     // Helpers for detecting cycles using DFS.
     bool dfsCycle(int node, vector<int> &state);
 };
+
+extern Graph globalGraph;
 
 #endif

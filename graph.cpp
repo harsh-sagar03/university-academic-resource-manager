@@ -1,16 +1,36 @@
 #include "graph.h"
+#include <fstream>
+#include <sstream>
+#include <unordered_map>
+
+static unordered_map<int,int> origToIdx;
+static vector<int> idxToOrig;
+
+Graph globalGraph(0);
+
 using namespace std;
 
 // Simple constructor — just make space for everyone.
-Graph::Graph(int n) : nodes(n), adj(n) {}
+Graph::Graph(int n) : nodes(0), adj(0) {
+    origToIdx.clear();
+    idxToOrig.clear();
+}
 
 // Add a directed edge prereq → course.
 void Graph::addEdge(int prereq, int course) {
-    if (prereq >= 0 && prereq < nodes && course >= 0 && course < nodes) {
-        adj[prereq].push_back(course);
-    } else {
-        cout << "Edge out of bounds, ignoring.\n";
-    }
+    auto getIdx = [&](int x){
+        if(origToIdx.count(x)) return origToIdx[x];
+        int newIdx = idxToOrig.size();
+        origToIdx[x] = newIdx;
+        idxToOrig.push_back(x);
+        adj.resize(newIdx+1);
+        nodes = newIdx+1;
+        return newIdx;
+    };
+
+    int u = getIdx(prereq);
+    int v = getIdx(course);
+    adj[u].push_back(v);
 }
 
 // DFS helper for cycle detection.
@@ -74,6 +94,11 @@ vector<int> Graph::topologicalSort() {
         return {};
     }
 
+    for(int x : order){
+        cout << idxToOrig[x] << " ";
+    }
+    cout << endl;
+
     return order;
 }
 
@@ -119,15 +144,64 @@ vector<vector<int>> Graph::semesterPlan() {
         return {};
     }
 
+    for(int i = 0; i < semesters.size(); i++){
+        cout << "Semester " << (i+1) << ": ";
+        for(int x : semesters[i]){
+            cout << idxToOrig[x] << " ";
+        }
+        cout << "\n";
+    }
+
     return semesters;
 }
 
 // Handy for debugging.
 void Graph::printGraph() const {
     for (int i = 0; i < nodes; i++) {
-        cout << i << " -> ";
+        cout << idxToOrig[i] << " -> ";
         for (int x : adj[i])
-            cout << x << " ";
+            cout << idxToOrig[x] << " ";
         cout << "\n";
     }
+}
+
+
+
+/* ===================== FILE HANDLING (CLASS METHODS) ===================== */
+
+void Graph::loadFromFile() {
+    ifstream fin("graph.txt");
+    if (!fin.is_open()) return;
+
+    string line;
+    vector<pair<int,int>> edges;
+    while (getline(fin, line)) {
+        if (line.empty()) continue;
+        size_t pos = line.find("->");
+        if (pos == string::npos) continue;
+        int u = stoi(line.substr(0, pos));
+        int v = stoi(line.substr(pos + 2));
+        edges.push_back({u, v});
+    }
+    fin.close();
+
+    int maxNode = 0;
+    for (auto &p : edges)
+        maxNode = max(maxNode, max(p.first, p.second));
+
+    nodes = maxNode + 1;
+    adj.assign(nodes, vector<int>());
+
+    for (auto &p : edges)
+        adj[p.first].push_back(p.second);
+}
+
+void Graph::saveToFile() const {
+    ofstream fout("graph.txt");
+    if (!fout.is_open()) return;
+    for (int u = 0; u < nodes; u++) {
+        for (int v : adj[u])
+            fout << u << "->" << v << "\n";
+    }
+    fout.close();
 }

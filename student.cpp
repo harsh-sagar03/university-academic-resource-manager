@@ -1,3 +1,4 @@
+#include "course_management.h"
 #include "student_schedule.h"
 #include <iostream>
 #include <vector>
@@ -37,6 +38,7 @@ void addStudent(const Student &s) {
         }
     }
     studentList.push_back(s);
+    saveStudentData();
 }
 
 void removeStudent(const int &id) {

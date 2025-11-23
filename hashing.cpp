@@ -2,42 +2,27 @@
 #include <string>
 #include <unordered_map>
 using namespace std;
-// -------------------- COURSE CLASS --------------------
-class Course {
-  public:
-    int id;            // CourseId (simple int)
+// -------------------- COURSE STRUCT --------------------
+struct HashCourse {
+    int id;
     string name;
     int credits;
-
-    Course(int i,string n, int c) {
-        id = i;
-        name = n;
-        credits = c;
-    }
-
-    // Default constructor
-    Course() {
-        id = 0;
-        name = "";
-        credits = 0;
-    }
-
 };
 
 // -------------------- GLOBAL HASH TABLE --------------------
-unordered_map<int, Course> courseTable; //Store and access courses by ID quickly
+unordered_map<int, HashCourse> courseTable; //Store and access courses by ID quickly
 
 
 
 // -------------------- COURSE FUNCTIONS --------------------
 
 // Insert a new course
-void insertCourse(const Course& c) {
+void insertCourse(const HashCourse& c) {
     courseTable[c.id] = c;
 }
 
 // Find a course by ID
-Course* findCourseById(const int& id) {
+HashCourse* findCourseById(const int& id) {
     auto it = courseTable.find(id);
     if (it != courseTable.end()) {
         return &it->second; // found
@@ -55,58 +40,30 @@ bool containsCourse(const int& id) {
     return courseTable.find(id) != courseTable.end();
 }
 
-// -------------------- MAIN FUNCTION (DEMO) --------------------
-int main() {
-    insertCourse(Course(101, "Data Structures", 4));
-    insertCourse(Course(102, "Calculus", 3));
-
-    int searchId = 101;
-
-    if (containsCourse(searchId)) {
-        Course* c = findCourseById(searchId);
-        cout << "Found: " << c->name << " (" << c->credits << " credits)\n";
-    }
-
-    removeCourseById(searchId);
-
-    if (!containsCourse(searchId)) {
-        cout << "Course removed successfully.\n";
-    }
-
-    return 0;
-}
-
 
 
 #include <iostream>
 #include <string>
 #include <unordered_map>
 
-// -------------------- STUDENT CLASS --------------------
-class Student {
-public:
-    int id;              // StudentId (simple integer)
+// -------------------- STUDENT STRUCT --------------------
+struct HashStudent {
+    int id;
     string name;
-
-    // Constructor
-    Student(int i = 0, string n = "") {
-        id = i;
-        name = n;
-    }
 };
 
 // -------------------- GLOBAL HASH TABLE --------------------
-unordered_map<int, Student> studentTable;
+unordered_map<int, HashStudent> studentTable;
 
 // -------------------- STUDENT FUNCTIONS --------------------
 
 // Insert a new student
-void insertStudent(const Student& s) {
+void insertStudent(const HashStudent& s) {
     studentTable[s.id] = s;
 }
 
 // Find a student by ID
-Student* findStudentById(const int& id) {
+HashStudent* findStudentById(const int& id) {
     auto it = studentTable.find(id);
     if (it != studentTable.end()) {
         return &it->second; // found
@@ -124,30 +81,6 @@ bool containsStudent(const int& id) {
     return studentTable.find(id) != studentTable.end();
 }
 
-// -------------------- MAIN FUNCTION (DEMO) --------------------
-int main() {
-    insertStudent(Student(1, "Alice"));
-    insertStudent(Student(2, "Bob"));
-    insertStudent(Student(3, "Charlie"));
-
-    int searchId = 2;
-
-    if (containsStudent(searchId)) {
-        Student* s = findStudentById(searchId);
-        cout << "Found student: " << s->name << "\n";
-    }
-
-    removeStudentById(searchId);
-
-    if (!containsStudent(searchId)) {
-        cout << "Student removed successfully.\n";
-    }
-
-    return 0;
-}
-
-
-
 
 
 #include <iostream>
@@ -156,35 +89,26 @@ int main() {
 
 using namespace std;
 
-// -------------------- ASSIGNMENT CLASS --------------------
-class Assignment {
-public:
-    string id;       // string key, e.g., "A101"
+// -------------------- ASSIGNMENT STRUCT --------------------
+struct HashAssignment {
+    string id;
     string title;
     string dueDate;
     bool completed;
-
-    // Constructor
-    Assignment(string i = "", string t = "", string d = "", bool c = false) {
-        id = i;
-        title = t;
-        dueDate = d;
-        completed = c;
-    }
 };
 
 // -------------------- GLOBAL HASH TABLE --------------------
-unordered_map<string, Assignment> assignmentTable;
+unordered_map<string, HashAssignment> assignmentTable;
 
 // -------------------- ASSIGNMENT FUNCTIONS --------------------
 
 // Insert a new assignment
-void insertAssignment(const Assignment& a) {
+void insertAssignment(const HashAssignment& a) {
     assignmentTable[a.id] = a;
 }
 
 // Find an assignment by ID
-Assignment* findAssignmentById(const string& id) {
+HashAssignment* findAssignmentById(const string& id) {
     auto it = assignmentTable.find(id);
     if (it != assignmentTable.end()) {
         return &it->second;
@@ -202,29 +126,118 @@ bool containsAssignment(const string& id) {
     return assignmentTable.find(id) != assignmentTable.end();
 }
 
-// -------------------- MAIN FUNCTION (DEMO) --------------------
-int main() {
-    // Insert assignments
-    insertAssignment(Assignment("A101", "Math Homework", "2025-10-30"));
-    insertAssignment(Assignment("A102", "Science Project", "2025-11-05"));
+/* -------------------- HASH TABLE STATS -------------------- */
+void displayHashTableStats() {
+    cout << "Courses stored: " << courseTable.size() << endl;
+    cout << "Students stored: " << studentTable.size() << endl;
+    cout << "Assignments stored: " << assignmentTable.size() << endl;
+}
 
-    string searchId = "A101";
+/* ===================== FILE HANDLING ===================== */
 
-    // Find and display assignment
-    if (containsAssignment(searchId)) {
-        Assignment* a = findAssignmentById(searchId);
-        cout << "Found assignment: " << a->title
-        cout << ", due: " << a->dueDate
-        cout << ", completed: " << (a->completed ? "Yes" : "No") << "\n";
+#include <fstream>
+
+// ---------- Load all hash tables ----------
+void loadHashData() {
+
+    // --- Load Courses ---
+    courseTable.clear();
+    ifstream fc("hash_courses.txt");
+    if (fc.is_open()) {
+        string line;
+        while (getline(fc, line)) {
+            if (line.empty()) continue;
+
+            size_t p1 = line.find('|');
+            size_t p2 = line.find('|', p1 + 1);
+            if (p1 == string::npos || p2 == string::npos) continue;
+
+            HashCourse c;
+            c.id = stoi(line.substr(0, p1));
+            c.name = line.substr(p1 + 1, p2 - p1 - 1);
+            c.credits = stoi(line.substr(p2 + 1));
+
+            courseTable[c.id] = c;
+        }
+        fc.close();
     }
 
-    // Remove assignment
-    removeAssignmentById(searchId);
+    // --- Load Students ---
+    studentTable.clear();
+    ifstream fs("hash_students.txt");
+    if (fs.is_open()) {
+        string line;
+        while (getline(fs, line)) {
+            if (line.empty()) continue;
 
-    // Check if removed
-    if (!containsAssignment(searchId)) {
-        cout << "Assignment " << searchId << " removed successfully.\n";
+            size_t p = line.find('|');
+            if (p == string::npos) continue;
+
+            HashStudent s;
+            s.id = stoi(line.substr(0, p));
+            s.name = line.substr(p + 1);
+
+            studentTable[s.id] = s;
+        }
+        fs.close();
     }
 
-    return 0;
+    // --- Load Assignments ---
+    assignmentTable.clear();
+    ifstream fa("hash_assignments.txt");
+    if (fa.is_open()) {
+        string line;
+        while (getline(fa, line)) {
+            if (line.empty()) continue;
+
+            size_t p1 = line.find('|');
+            size_t p2 = line.find('|', p1 + 1);
+            size_t p3 = line.find('|', p2 + 1);
+            if (p1 == string::npos || p2 == string::npos || p3 == string::npos) continue;
+
+            HashAssignment a;
+            a.id = line.substr(0, p1);
+            a.title = line.substr(p1 + 1, p2 - p1 - 1);
+            a.dueDate = line.substr(p2 + 1, p3 - p2 - 1);
+            a.completed = stoi(line.substr(p3 + 1));
+
+            assignmentTable[a.id] = a;
+        }
+        fa.close();
+    }
+}
+
+// ---------- Save all hash tables ----------
+void saveHashData() {
+
+    // --- Save Courses ---
+    ofstream fc("hash_courses.txt");
+    if (fc.is_open()) {
+        for (auto &pair : courseTable) {
+            const HashCourse &c = pair.second;
+            fc << c.id << "|" << c.name << "|" << c.credits << "\n";
+        }
+        fc.close();
+    }
+
+    // --- Save Students ---
+    ofstream fs("hash_students.txt");
+    if (fs.is_open()) {
+        for (auto &pair : studentTable) {
+            const HashStudent &s = pair.second;
+            fs << s.id << "|" << s.name << "\n";
+        }
+        fs.close();
+    }
+
+    // --- Save Assignments ---
+    ofstream fa("hash_assignments.txt");
+    if (fa.is_open()) {
+        for (auto &pair : assignmentTable) {
+            const HashAssignment &a = pair.second;
+            fa << a.id << "|" << a.title << "|" 
+               << a.dueDate << "|" << a.completed << "\n";
+        }
+        fa.close();
+    }
 }

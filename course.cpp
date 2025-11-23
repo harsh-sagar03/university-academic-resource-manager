@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <iomanip>
 using namespace std;
 
 /*
@@ -22,6 +23,47 @@ void addCourse(const Course &c) {
         }
     }
     courseList.push_back(c);
+}
+
+/* ===================== FILE HANDLING ===================== */
+
+#include <fstream>
+
+void loadCourseData() {
+    courseList.clear();
+    ifstream fin("courses.txt");
+    if (!fin.is_open()) return;
+
+    string line;
+    while (getline(fin, line)) {
+        if (line.empty()) continue;
+
+        size_t p1 = line.find('|');
+        size_t p2 = line.find('|', p1 + 1);
+
+        if (p1 == string::npos || p2 == string::npos) continue;
+
+        int id = stoi(line.substr(0, p1));
+        string name = line.substr(p1 + 1, p2 - p1 - 1);
+        int credits = stoi(line.substr(p2 + 1));
+
+        courseList.push_back(Course(id, name, credits));
+    }
+
+    fin.close();
+}
+
+void saveCourseData() {
+    ofstream fout("courses.txt");
+    if (!fout.is_open()) return;
+
+    for (const auto &c : courseList) {
+        fout << c.getId() << "|"
+             << c.getName() << "|"
+             << c.getCredits() << "\n";
+    }
+
+    fout.close();
 }
 
 void removeCourse(int id) {

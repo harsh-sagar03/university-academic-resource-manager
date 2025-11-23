@@ -6,7 +6,7 @@
 using namespace std;
 
 /*
-=========================================================
+
     COURSE MANAGEMENT MODULE (Part A)
     ---------------------------------
     This module provides functionalities for managing
@@ -17,7 +17,7 @@ using namespace std;
     - Include this header in main.cpp (or any other file).
     - Implement the functions in course_management.cpp.
     - Do NOT write the full logic here (only declarations).
-=========================================================
+
 */
 
 // -------------------- Class DEFINITION --------------------
@@ -102,5 +102,13 @@ void sortCoursesByCredits();
    - Effect: Prints id, name, and credits to console
 */
 void displayAllCourses();
+
+
+// -------------------- FILE HANDLING --------------------
+// Loads all courses from courses.txt into the internal list
+void loadCourseData();
+
+// Saves all current courses into courses.txt
+void saveCourseData();
 
 #endif // COURSE_MANAGEMENT_H

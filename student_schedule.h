@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 /*
-=========================================================
+
     STUDENT SCHEDULE MODULE (Part B)
     --------------------------------
     This module manages student schedules using a
@@ -16,7 +16,7 @@ using namespace std;
     - Include this header in main.cpp (or any other file).
     - Implement the functions in student_schedule.cpp.
     - Do NOT write full logic here (only declarations).
-=========================================================
+
 */
 
 // -------------------- TYPEDEFS --------------------
@@ -109,6 +109,13 @@ vector<int> getCourseStudents(const int& cid);
    Returns total number of active enrollments.
    - Output: size_t (total number of (student,course) pairs)
 */
+
 size_t totalEnrollments();
+
+// -------------------- FILE HANDLING --------------------
+// Load all students and enrollments from file
+void loadStudentData();
+// Save all students and enrollments to file
+void saveStudentData();
 
 #endif // STUDENT_SCHEDULE_H

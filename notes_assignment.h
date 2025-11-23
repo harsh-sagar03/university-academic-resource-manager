@@ -7,7 +7,7 @@
 #include <cstddef> // for size_t
 using namespace std;
 /*
-=========================================================
+
     ASSIGNMENT & NOTES MODULE (Part C)
     ----------------------------------
     This module manages:
@@ -27,7 +27,7 @@ using namespace std;
     How to use:
     - Include this header in main.cpp (or any file).
     - Implement the functions in notes_assignments.cpp.
-=========================================================
+
 */
 
 // -------------------- STRUCT DEFINITIONS --------------------
@@ -97,13 +97,13 @@ void pushNote(const string& note);
    - Output: string (the popped note)
    - Note: should handle empty stack safely
 */
-std::string popNote();
+void popNote();
 
 /*
    Returns the top note without removing it.
    - Output: string (the top note)
 */
-std::string peekNote();
+void peekNote();
 
 /*
    Displays all notes in stack order (top to bottom).
@@ -115,5 +115,11 @@ void displayAllNotes();
    - Output: size_t
 */
 size_t totalNotes();
+
+// -------------------- FILE HANDLING --------------------
+// Load all notes & assignments from file
+void loadNotesData();
+// Save all notes & assignments to file
+void saveNotesData();
 
 #endif // NOTES_ASSIGNMENTS_H

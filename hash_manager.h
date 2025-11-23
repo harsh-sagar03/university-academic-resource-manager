@@ -10,7 +10,7 @@
 using namespace std;
 
 /*
-=========================================================
+
     HASH MANAGER MODULE (Part D)
     ----------------------------
     Provides fast access to Courses, Students, and 
@@ -26,7 +26,7 @@ using namespace std;
     How to use:
     - Include this header in main.cpp.
     - Implement the functions in hash_manager.cpp.
-=======================================================
+
 */
 
 // -------------------- TYPEDEFS --------------------
@@ -37,7 +37,7 @@ using StudentId = int;
 /*
    Course entity
 */
-struct Course {
+struct HashCourse {
     CourseId id;
     string name;
     int credits;
@@ -46,7 +46,7 @@ struct Course {
 /*
    Student entity
 */
-struct Student {
+struct HashStudent {
     StudentId id;
     string name;
 };
@@ -54,7 +54,7 @@ struct Student {
 /*
    Assignment entity
 */
-struct Assignment {
+struct HashAssignment {
     string id;     // string key (e.g., "A101")
     string title;
     string dueDate;
@@ -62,20 +62,20 @@ struct Assignment {
 };
 
 // -------------------- COURSE HASH FUNCTIONS --------------------
-void insertCourse(const Course& c);
-Course* findCourseById(const CourseId& id);
+void insertCourse(const HashCourse& c);
+HashCourse* findCourseById(const CourseId& id);
 void removeCourseById(const CourseId& id);
 bool containsCourse(const CourseId& id);
 
 // -------------------- STUDENT HASH FUNCTIONS --------------------
-void insertStudent(const Student& s);
-Student* findStudentById(const StudentId& id);
+void insertStudent(const HashStudent& s);
+HashStudent* findStudentById(const StudentId& id);
 void removeStudentById(const StudentId& id);
 bool containsStudent(const StudentId& id);
 
 // -------------------- ASSIGNMENT HASH FUNCTIONS --------------------
-void insertAssignment(const Assignment& a);
-Assignment* findAssignmentById(const string& id);
+void insertAssignment(const HashAssignment& a);
+HashAssignment* findAssignmentById(const string& id);
 void removeAssignmentById(const string& id);
 bool containsAssignment(const string& id);
 
