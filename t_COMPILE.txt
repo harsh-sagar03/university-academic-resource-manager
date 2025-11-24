@@ -1,0 +1,4 @@
+g++ -std=c++17 main.cpp course.cpp student.cpp notes_assignment.cpp hashing.cpp graph.cpp -o uarm
+
+
+run - ./uarm
