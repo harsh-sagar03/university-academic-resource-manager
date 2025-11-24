@@ -6,7 +6,6 @@
 using namespace std;
 
 /*
-
     COURSE MANAGEMENT MODULE (Part A)
     ---------------------------------
     This module provides functionalities for managing
@@ -17,25 +16,17 @@ using namespace std;
     - Include this header in main.cpp (or any other file).
     - Implement the functions in course_management.cpp.
     - Do NOT write the full logic here (only declarations).
-
 */
 
-// -------------------- Class DEFINITION --------------------
-/*university course with:
-   - id      : Unique integer identifier
-   - name    : Course name (string)
-   - credits : Number of credits assigned
-*/
 class Course {
 private:
     int id;
     string name;
     int credits;
 public:
-// All Constructors defined
-// Default Constructor
+
 Course();
-// Parameterized constructor
+
 Course(int id,string name, int credits){
     this->id = id;
     this->name = name;
@@ -49,19 +40,7 @@ int getCredits() const { return credits; }
 void setCredits(int c) { credits = c; }
 };
 
-// -------------------- FUNCTION DECLARATIONS --------------------
-/*
-   Adds a new course to the system.
-   - Input: const reference to a Course object
-   - Effect: Inserts into the course list
-*/
 void addCourse(const Course& c);
-
-/*
-   Removes a course.
-   - Input: int id (course id)
-   - Effect: Deletes matching course if found
-*/
 void removeCourse(int id);
 
 /*
@@ -103,12 +82,9 @@ void sortCoursesByCredits();
 */
 void displayAllCourses();
 
-
-// -------------------- FILE HANDLING --------------------
-// Loads all courses from courses.txt into the internal list
 void loadCourseData();
 
 // Saves all current courses into courses.txt
 void saveCourseData();
 
-#endif // COURSE_MANAGEMENT_H
+#endif 

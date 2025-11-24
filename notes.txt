@@ -2,6 +2,7 @@ Review Data Structures notes
 Revise graph algorithms
 Complete DBMS normalization chapter
 Prepare for Java practicals
+TEST NOTE
 #ASSIGNMENTS
 DSA Assignment 3|2025-03-20
 Java Lab File|2025-03-15

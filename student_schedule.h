@@ -18,27 +18,17 @@ using namespace std;
     - Do NOT write full logic here (only declarations).
 
 */
-
-// -------------------- TYPEDEFS --------------------
-
-// -------------------- STRUCT DEFINITIONS --------------------
-/*
-   Represents a student with:
-   - id   : Unique integer identifier
-   - name : Student's full name
-*/
 class Student {
 private:
     int id;
     string name;
     string department;
-    // (Optionally: year etc. can be added later)
-// Constructors
+
+
 public:
-// Default Constructor
+
 Student();
 
-// Parameterized Constructor
 Student(int id,string name,string department){
     this->id=id;
     this->name=name;
@@ -56,12 +46,6 @@ void setDepartment(const string &newDept) { department = newDept; }
 };
 
 
-
-// -------------------- FUNCTION DECLARATIONS --------------------
-/*
-   Adds a new student into the system.
-   - Input: const reference to Student object
-*/
 void addStudent(const Student& s);
 
 /*

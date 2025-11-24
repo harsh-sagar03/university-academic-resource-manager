@@ -10,13 +10,11 @@ Graph globalGraph(0);
 
 using namespace std;
 
-// Simple constructor — just make space for everyone.
 Graph::Graph(int n) : nodes(0), adj(0) {
     origToIdx.clear();
     idxToOrig.clear();
 }
 
-// Add a directed edge prereq → course.
 void Graph::addEdge(int prereq, int course) {
     auto getIdx = [&](int x){
         if(origToIdx.count(x)) return origToIdx[x];
@@ -36,16 +34,16 @@ void Graph::addEdge(int prereq, int course) {
 // DFS helper for cycle detection.
 // state: 0 = unvisited, 1 = in-progress, 2 = done.
 bool Graph::dfsCycle(int node, vector<int> &state) {
-    state[node] = 1; // exploring
+    state[node] = 1; 
 
     for (int nxt : adj[node]) {
         if (state[nxt] == 1)
-            return true; // cycle
+            return true;
         if (state[nxt] == 0 && dfsCycle(nxt, state))
             return true;
     }
 
-    state[node] = 2; // finished
+    state[node] = 2;
     return false;
 }
 

@@ -1,5 +1,5 @@
-A1|DSA Linked List Assignment|2025-03-22|0
-A2|DBMS ER Diagram|2025-03-25|1
-A3|Networks Lab File|2025-03-20|0
-A4|ML Mini Project Proposal|2025-03-29|0
 A5|AI Case Study Review|2025-04-01|0
+A4|ML Mini Project Proposal|2025-03-29|0
+A3|Networks Lab File|2025-03-20|0
+A2|DBMS ER Diagram|2025-03-25|1
+A1|DSA Linked List Assignment|2025-03-22|0

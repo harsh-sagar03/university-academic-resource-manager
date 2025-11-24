@@ -30,14 +30,6 @@ using namespace std;
 
 */
 
-// -------------------- STRUCT DEFINITIONS --------------------
-/*
-   Represents an assignment with:
-   - id       : Unique string identifier (e.g., "A101")
-   - title    : Short description/title
-   - dueDate  : Optional (string format, e.g., "2025-10-05")
-   - status   : true if completed, false otherwise
-*/
 struct Assignment {
     std::string id;
     std::string title;
@@ -47,11 +39,6 @@ struct Assignment {
 struct Note {
     string text;
 };
-// -------------------- ASSIGNMENT FUNCTIONS --------------------
-/*
-   Adds a new assignment into the pending queue.
-   - Input: const reference to Assignment object
-*/
 void addAssignment(const Assignment& a);
 
 /*

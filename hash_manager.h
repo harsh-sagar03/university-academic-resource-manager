@@ -10,7 +10,6 @@
 using namespace std;
 
 /*
-
     HASH MANAGER MODULE (Part D)
     ----------------------------
     Provides fast access to Courses, Students, and 
@@ -26,14 +25,11 @@ using namespace std;
     How to use:
     - Include this header in main.cpp.
     - Implement the functions in hash_manager.cpp.
-
 */
 
-// -------------------- TYPEDEFS --------------------
 using CourseId  = int;
 using StudentId = int;
 
-// -------------------- STRUCT DEFINITIONS --------------------
 /*
    Course entity
 */
@@ -55,7 +51,7 @@ struct HashStudent {
    Assignment entity
 */
 struct HashAssignment {
-    string id;     // string key (e.g., "A101")
+    string id;     
     string title;
     string dueDate;
     bool completed = false;
@@ -79,19 +75,9 @@ HashAssignment* findAssignmentById(const string& id);
 void removeAssignmentById(const string& id);
 bool containsAssignment(const string& id);
 
-// -------------------- META FUNCTIONS --------------------
-/*
-   Displays hash table statistics:
-   - Bucket count
-   - Load factor
-   - Average bucket size
-   - (Collisions estimation)
-*/
+
 void displayHashTableStats();
 
-/*
-   Clears all hash tables (students, courses, assignments).
-*/
 void clearHashTables();
 
 #endif // HASH_MANAGER_H

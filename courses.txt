@@ -1,19 +1,19 @@
-208| ARTIFICIAL INTELLIGENCE          |4
-198| CALCULUS                         |4
-200| COMPUTER ARCHITECTURE            |4
-210| CYBER SECURITY FUNDAMENTALS      |3
-209| DATA MINING                      |3
-121| DATA STRUCTURES                  |4
 204| DATABASE LAB                     |1
-176| DBMS                             |3
-201| DIGITAL LOGIC DESIGN             |3
-181| ECO                              |2
-151| JAVA LAB                         |3
-197| LINEAR ALGEBRA                   |4
-207| MACHINE LEARNING BASICS          |3
-203| MICROPROCESSORS AND MICROCONTROLLERS |3
 206| NETWORKS LAB                     |1
 205| OPERATING SYSTEMS LAB            |1
+181| ECO                              |2
+201| DIGITAL LOGIC DESIGN             |3
+209| DATA MINING                      |3
+151| JAVA LAB                         |3
+207| MACHINE LEARNING BASICS          |3
+203| MICROPROCESSORS AND MICROCONTROLLERS |3
+210| CYBER SECURITY FUNDAMENTALS      |3
+176| DBMS                             |3
 199| PROBABILITY AND STATISTICS       |3
+310|ELECTIVE 1                        |3
+198| CALCULUS                         |4
+121| DATA STRUCTURES                  |4
+200| COMPUTER ARCHITECTURE            |4
+197| LINEAR ALGEBRA                   |4
 202| THEORY OF COMPUTATION            |4
-310|ELECTIVE 1|3
+208| ARTIFICIAL INTELLIGENCE          |4

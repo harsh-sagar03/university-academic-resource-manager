@@ -11,14 +11,14 @@ using namespace std;
     INTERNAL STORAGE
 */
 static vector<Student> studentList;
-static vector<pair<int,int>> enrollments;   // (studentId, courseId)
+static vector<pair<int,int>> enrollments; 
 
 
-// ------------------ Student Default Constructor ------------------
+
 Student::Student() : id(0), name(""), department("") {}
 
 
-// ------------------ Helper function: search by ID ------------------
+
 static Student* searchStudentById(int id) {
     for (int i = 0; i < (int)studentList.size(); i++) {
         if (studentList[i].getId() == id)
@@ -26,11 +26,6 @@ static Student* searchStudentById(int id) {
     }
     return NULL;
 }
-
-
-// ======================================================
-//               FUNCTION IMPLEMENTATIONS
-// ======================================================
 
 void addStudent(const Student &s) {
     // Prevent duplicate ID

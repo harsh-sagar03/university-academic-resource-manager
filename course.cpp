@@ -10,7 +10,6 @@ using namespace std;
 */
 static vector<Course> courseList;
 
-// Default constructor
 Course::Course() : id(0), name(""), credits(0) {}
 
 //               FUNCTION DEFINITIONS

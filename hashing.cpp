@@ -2,7 +2,7 @@
 #include <string>
 #include <unordered_map>
 using namespace std;
-// -------------------- COURSE STRUCT --------------------
+
 struct HashCourse {
     int id;
     string name;
@@ -12,9 +12,6 @@ struct HashCourse {
 // -------------------- GLOBAL HASH TABLE --------------------
 unordered_map<int, HashCourse> courseTable; //Store and access courses by ID quickly
 
-
-
-// -------------------- COURSE FUNCTIONS --------------------
 
 // Insert a new course
 void insertCourse(const HashCourse& c) {
